@@ -124,9 +124,12 @@ sudo apt -y autoremove
 # ------------------------------------------------------------------------------
 #  Setup ZSH
 # ------------------------------------------------------------------------------
+echo "Setup ZSH"
 touch ~/.zshrc
 sudo chsh -s $(which zsh) $(whoami)
 exec $SHELL -l
+
+echo "Install Oh my zsh"
 rm -rf ${HOME}/.oh-my-zsh
 curl -Lk https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 exec $SHELL -l
