@@ -8,7 +8,7 @@
 # ------------------------------------------------------------------------------
 #  Initialize
 # ------------------------------------------------------------------------------
-echo "🚀 A setup scripts for Ubuntu."
+echo "🚀 A setup scripts for Ubuntu 22.04."
 
 # ------------------------------------------------------------------------------
 #  Set Vim to default editor
@@ -57,6 +57,10 @@ sudo apt-get install -y binutils \
     libexpat-dev \
     libffi-dev \
     libgcc-9-dev \
+    libgtk-4-bin \
+    libgtk-4-common \
+    libgtk-4-dev \
+    libgtk-4-doc \
     libgtk2.0-dev \
     libgtop2-dev \
     libgwengui-qt5-dev \
