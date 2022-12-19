@@ -127,19 +127,171 @@ sudo apt update && sudo apt -y upgrade
 sudo apt -y autoremove
 
 # ------------------------------------------------------------------------------
+#  Setup Linuxbrew
+# ------------------------------------------------------------------------------
+yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# ------------------------------------------------------------------------------
+#  Install gcc
+# ------------------------------------------------------------------------------
+brew install gcc
+
+# ------------------------------------------------------------------------------
+#  Install NeoVim
+# ------------------------------------------------------------------------------
+brew install nvim
+
+# ------------------------------------------------------------------------------
+#  Install Crystal
+# ------------------------------------------------------------------------------
+brew install crystal
+
+# ------------------------------------------------------------------------------
+#  Install Swift
+# ------------------------------------------------------------------------------
+brew install swift
+
+# ------------------------------------------------------------------------------
+#  Install Nim
+# ------------------------------------------------------------------------------
+brew install nim
+
+# ------------------------------------------------------------------------------
+#  Install Zig
+# ------------------------------------------------------------------------------
+brew install zig
+
+# ------------------------------------------------------------------------------
+#  Install Sheldon
+# ------------------------------------------------------------------------------
+brew install sheldon
+
+# ------------------------------------------------------------------------------
+#  Install fzf
+# ------------------------------------------------------------------------------
+brew install fzf
+
+# ------------------------------------------------------------------------------
+#  Install zsh-completions
+# ------------------------------------------------------------------------------
+brew install zsh-completions
+
+# ------------------------------------------------------------------------------
+#  Install Volta
+# ------------------------------------------------------------------------------
+curl https://get.volta.sh | bash
+
+# ------------------------------------------------------------------------------
 #  Setup ZSH
 # ------------------------------------------------------------------------------
 echo "Setup ZSH"
 touch ~/.zshrc
 sudo chsh -s $(which zsh) $(whoami)
-exec $SHELL -l
 
 echo "Install Oh my zsh"
 rm -rf ${HOME}/.oh-my-zsh
 curl -Lk https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-exec $SHELL -l
 
-# TODO: setup .zshrc and Sheldon
+# Change theme to "avit"
+sed -i -e "s/robbyrussell/avit/g" ~/.zshrc
+
+# Make ~/.local/bin directory
+mkdir -p ${HOME}/.local/bin
+
+# Add settings
+cat <<EOS >>~/.zshrc
+# 文字コードの指定
+export LANG=ja_JP.UTF-8
+
+# 色を使用出来るようにする
+autoload -Uz colors
+colors
+
+# 日本語ファイル名を表示可能にする
+setopt print_eight_bit
+
+# cdなしでディレクトリ移動
+setopt auto_cd
+
+# ビープ音の停止
+setopt no_beep
+
+# ビープ音の停止(補完時)
+setopt nolistbeep
+
+# cd -<tab>で以前移動したディレクトリを表示
+setopt auto_pushd
+
+# ヒストリ(履歴)を保存、数を増やす
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+
+# 同時に起動したzshの間でヒストリを共有する
+setopt share_history
+
+# 直前と同じコマンドの場合は履歴に追加しない
+setopt hist_ignore_dups
+
+# 同じコマンドをヒストリに残さない
+setopt hist_ignore_all_dups
+
+# スペースから始まるコマンド行はヒストリに残さない
+setopt hist_ignore_space
+
+# ヒストリに保存するときに余分なスペースを削除する
+setopt hist_reduce_blanks
+
+# 履歴検索中、(連続してなくとも)重複を飛ばす
+setopt hist_find_no_dups
+
+# histroyコマンドは記録しない
+setopt hist_no_store
+
+# aliases
+alias vim="nvim"
+alias vi="nvim"
+
+# zmv
+autoload -Uz zmv
+alias zmv='noglob zmv -W'
+
+# Linuxbrew
+export PATH=/home/linuxbrew/.linuxbrew/bin:\$PATH
+eval "\$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# .local/bin
+export PATH=\${HOME}/.local/bin:\$PATH
+
+# Volta
+export VOLTA_HOME="\$HOME/.volta"
+export PATH="\$VOLTA_HOME/bin:\$PATH"
+
+function select-history() {
+    BUFFER=\$(history -n -r 1 | fzf --no-sort +m --query "\$LBUFFER" --prompt="History > ")
+    CURSOR=\$#BUFFER
+}
+zle -N select-history
+bindkey '^r' select-history
+
+EOS
+
+# Setup for sheldon
+mkdir -p ~/.config/sheldon
+cat <<EOF >~/.config/sheldon/plugins.toml
+shell = "zsh"
+
+[plugins]
+
+EOF
+
+sheldon add zsh-autosuggestions --github zsh-users/zsh-autosuggestions
+sheldon add zsh-z --github agkozak/zsh-z
+sheldon add zsh-bd --github Tarrasch/zsh-bd
+sheldon add zsh-cdr --github willghatch/zsh-cdr
+sheldon lock --update
 
 # ------------------------------------------------------------------------------
 #  Reboot
