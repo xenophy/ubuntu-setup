@@ -182,6 +182,19 @@ brew install zsh-completions
 #  Install Volta
 # ------------------------------------------------------------------------------
 curl https://get.volta.sh | bash
+export VOLTA_HOME="\$HOME/.volta"
+export PATH="\$VOLTA_HOME/bin:\$PATH"
+
+# Node インストール
+volta install node
+
+# Yarn インストール
+volta install yarn
+
+# ------------------------------------------------------------------------------
+#  Install Bun
+# ------------------------------------------------------------------------------
+curl https://bun.sh/install | bash
 
 # ------------------------------------------------------------------------------
 #  Setup ZSH
@@ -250,6 +263,13 @@ setopt hist_find_no_dups
 # histroyコマンドは記録しない
 setopt hist_no_store
 
+function select-history() {
+    BUFFER=\$(history -n -r 1 | fzf --no-sort +m --query "\$LBUFFER" --prompt="History > ")
+    CURSOR=\$#BUFFER
+}
+zle -N select-history
+bindkey '^r' select-history
+
 # aliases
 alias vim="nvim"
 alias vi="nvim"
@@ -269,13 +289,11 @@ export PATH=\${HOME}/.local/bin:\$PATH
 export VOLTA_HOME="\$HOME/.volta"
 export PATH="\$VOLTA_HOME/bin:\$PATH"
 
-function select-history() {
-    BUFFER=\$(history -n -r 1 | fzf --no-sort +m --query "\$LBUFFER" --prompt="History > ")
-    CURSOR=\$#BUFFER
-}
-zle -N select-history
-bindkey '^r' select-history
+# Bun
+export PATH=\${HOME}/.bun/bin:\$PATH
 
+# Rust
+source "$HOME/.cargo/env"
 EOS
 
 # Setup for sheldon
@@ -292,6 +310,128 @@ sheldon add zsh-z --github agkozak/zsh-z
 sheldon add zsh-bd --github Tarrasch/zsh-bd
 sheldon add zsh-cdr --github willghatch/zsh-cdr
 sheldon lock --update
+
+# -----------------------------------------------------------------------------
+# Install DeepL clip
+# -----------------------------------------------------------------------------
+curl -OL https://github.com/masan4444/deepl-clip/releases/latest/download/deepl-clip.sh
+chmod u+x deepl-clip.sh
+sudo mv deepl-clip.sh /usr/local/bin/
+
+# -----------------------------------------------------------------------------
+#  Install Gitkraken
+# -----------------------------------------------------------------------------
+wget https://release.gitkraken.com/linux/gitkraken-amd64.deb
+sudo dpkg -i gitkraken-amd64.deb
+rm -f ./gitkraken-amd64.deb
+
+# -----------------------------------------------------------------------------
+#  Install openssl 1.1.1g
+# -----------------------------------------------------------------------------
+wget https://www.openssl.org/source/openssl-1.1.1q.tar.gz
+tar xvzf openssl-1.1.1q.tar.gz
+cd openssl-1.1.1q
+sh config zlib
+make
+sudo make install_sw
+cd ../
+rm -Rf openssl-1.1.1q*
+
+# -----------------------------------------------------------------------------
+#  Install Rust
+# -----------------------------------------------------------------------------
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+# -----------------------------------------------------------------------------
+#  Install Wezterm
+# -----------------------------------------------------------------------------
+wget https://github.com/wez/wezterm/releases/download/20221119-145034-49b9839f/wezterm-20221119-145034-49b9839f.Ubuntu22.04.deb
+sudo apt-get install -y ./wezterm-20220624-141144-bd1b7c5d.Ubuntu22.04.deb
+rm -f ./wezterm-20220624-141144-bd1b7c5d.Ubuntu22.04.deb
+
+cat <<EOF >${HOME}/.wezterm.lua
+local wezterm = require 'wezterm';
+
+return {
+  color_scheme = "iceberg-dark",
+  font = wezterm.font("UDEV Gothic"),
+  font_size = 22,
+  line_height = 1.0,
+  use_ime = true,
+  initial_cols = 250,
+  initial_rows = 100,
+  hide_tab_bar_if_only_one_tab = true,
+  keys = {
+    {key="t", mods="CTRL", action=wezterm.action{SpawnTab="CurrentPaneDomain"}},
+    {key="{", mods="CTRL|SHIFT", action=wezterm.action{ActivateTabRelative=-1}},
+    {key="}", mods="CTRL|SHIFT", action=wezterm.action{ActivateTabRelative=1}},
+    {key="w", mods="CTRL|SHIFT", action=wezterm.action{CloseCurrentTab={confirm=true}}},
+    {key = "_", mods="CTRL", action="DisableDefaultAssignment" },
+    {
+      key = "=",
+      mods = 'CTRL|SHIFT|ALT',
+      action = wezterm.action.SplitVertical {
+        domain = 'CurrentPaneDomain'
+      },
+    },
+    {
+      key = "|",
+      mods = 'CTRL|SHIFT|ALT',
+      action = wezterm.action.SplitHorizontal {
+        domain = 'CurrentPaneDomain'
+      },
+    },
+    {
+      key = 'Z',
+      mods = 'CTRL|SHIFT|ALT',
+      action = wezterm.action.TogglePaneZoomState,
+    },
+    {
+      key = '~',
+      mods = 'CTRL|SHIFT|ALT',
+      action = wezterm.action.TogglePaneZoomState,
+    },
+  },
+  hyperlink_rules = {
+    -- Linkify things that look like URLs
+    -- This is actually the default if you don't specify any hyperlink_rules
+    {
+      regex = "\\b\\w+://(?:[\\w.-]+)\\.[a-z]{2,15}\\S*\\b",
+      format = "/setup.sh",
+    },
+
+    -- linkify email addresses
+    {
+      regex = "\\b\\w+@[\\w-]+(\\.[\\w-]+)+\\b",
+      format = "mailto:/setup.sh",
+    },
+
+    -- file:// URI
+    {
+      regex = "\\bfile://\\S*\\b",
+      format = "/setup.sh",
+    },
+
+    -- Make task numbers clickable
+    --[[
+    {
+      regex = "\\b[tT](\\d+)\\b"
+      format = "https://example.com/tasks/?t="
+    }
+    ]]
+  }
+}
+EOF
+
+# -----------------------------------------------------------------------------
+#  Install UDEV Gothic
+# -----------------------------------------------------------------------------
+wget https://github.com/yuru7/udev-gothic/releases/download/v1.0.1/UDEVGothic_v1.0.1.zip
+/usr/bin/unzip UDEVGothic_v1.0.1.zip
+sudo rm -Rf /usr/share/fonts/UDEVGothic_v1.0.1
+sudo mv UDEVGothic_v1.0.1 /usr/share/fonts
+rm UDEVGothic_v1.0.1.zip
+# -----------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
 #  Reboot
