@@ -163,8 +163,8 @@ brew install zsh-completions
 #  Install Volta
 # ------------------------------------------------------------------------------
 curl https://get.volta.sh | bash
-export VOLTA_HOME="\$HOME/.volta"
-export PATH="\$VOLTA_HOME/bin:\$PATH"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
 
 # Node インストール
 volta install node
