@@ -16,6 +16,11 @@ echo "🚀 A setup scripts for Ubuntu."
 sudo update-alternatives --set editor /usr/bin/vim.basic
 
 # ------------------------------------------------------------------------------
+#  Set /etc/passwd for Account
+# ------------------------------------------------------------------------------
+sudo usermod -s /usr/bin/zsh ${USER}
+
+# ------------------------------------------------------------------------------
 #  Add current user to sudoers
 # ------------------------------------------------------------------------------
 echo "${USER} ALL=(ALL:ALL) NOPASSWD:   ALL" | sudo tee /etc/sudoers.d/${USER}
@@ -125,7 +130,6 @@ sudo apt -y autoremove
 #  Setup ZSH
 # ------------------------------------------------------------------------------
 echo "Setup ZSH"
-usermod -s /usr/bin/zsh
 touch ~/.zshrc
 sudo chsh -s $(which zsh) $(whoami)
 exec $SHELL -l
