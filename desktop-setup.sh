@@ -470,7 +470,7 @@ gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
 gsettings set org.gnome.shell.extensions.ding show-trash true
 
 # default terminal
-gsettings set org.gnome.desktop.default-applications.terminal exec 'wezterm'
+gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/wezterm-gui
 gsettings set org.gnome.desktop.default-applications.terminal exec-arg "-x"
 
 # dock extend height
@@ -602,10 +602,10 @@ chmod u+x deepl-clip.sh
 # ------------------------------------------------------------------------------
 #  Install Visual Studio Code
 # ------------------------------------------------------------------------------
-sudo apt-get install wget gpg
+sudo apt-get install -y wget gpg
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
 sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings
-sudo sh -c 'echo \"deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main\" > /etc/apt/sources.list.d/vscode.list'
+sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 rm -f packages.microsoft.gpg
 sudo apt-get install -y apt-transport-https
 sudo apt-get update
@@ -1305,6 +1305,9 @@ sleep 5s
 
 # 終了する
 ps aux | grep /usr/share/code/code | grep -v grep | awk '{ print \"kill -9\", $2 }' | sh
+
+# TODO: Set wallpaper
+# TODO: Set dock items
 
 # ------------------------------------------------------------------------------
 #  Reboot
