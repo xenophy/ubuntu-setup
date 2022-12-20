@@ -27,81 +27,88 @@ sudo usermod -s /usr/bin/zsh ${USER}
 echo "${USER} ALL=(ALL:ALL) NOPASSWD:   ALL" | sudo tee /etc/sudoers.d/${USER}
 
 # ------------------------------------------------------------------------------
+#  Gnome settings
+# ------------------------------------------------------------------------------
+
+# blank screen
+gsettings set org.gnome.desktop.session idle-delay 0
+
+# ------------------------------------------------------------------------------
 #  Install Packages
 # ------------------------------------------------------------------------------
 sudo apt-get install -y binutils \
-    bowtie2 \
-    bridge-utils \
-    build-essential \
-    curl \
-    debhelper \
-    desktop-file-utils \
-    devscripts \
-    fcitx-libs-dev \
-    gdebi-core \
-    gettext \
-    gir1.2-clutter-1.0 \
-    gir1.2-gtop-2.0 \
-    gir1.2-nm-1.0 \
-    git \
-    git-flow \
-    git-lfs \
-    gnupg2 \
-    gyp \
-    jq \
-    libbz2-dev \
-    libc6-dev \
-    libcurl4-openssl-dev \
-    libcurl4 \
-    libedit2 \
-    libexpat-dev \
-    libffi-dev \
-    libgcc-9-dev \
-    libgtk-4-bin \
-    libgtk-4-common \
-    libgtk-4-dev \
-    libgtk-4-doc \
-    libgtk2.0-dev \
-    libgtop2-dev \
-    libgwengui-qt5-dev \
-    libibus-1.0-dev \
-    liblzo2-dev \
-    libncurses-dev \
-    libpam0g-dev \
-    libprotobuf-dev \
-    libpython2.7 \
-    libqwt-qt5-dev \
-    libsqlite3-0 \
-    libsqlite3-dev \
-    libssl-dev \
-    libstdc++-9-dev \
-    libuim-dev \
-    libvirt-clients \
-    libvirt-daemon \
-    libxcb-xfixes0-dev \
-    libxml2 \
-    libz3-dev \
-    libzinnia-dev \
-    m4 \
-    nkf \
-    openssh-server \
-    protobuf-compiler \
-    python3-dev \
-    python3-pip \
-    python3-venv \
-    qemu-system-x86 \
-    qtbase5-dev \
-    ruby \
-    sqlite3 \
-    stress \
-    texinfo \
-    tree \
-    tzdata \
-    zsh \
-    apt-transport-https \
-    ca-certificates \
-    software-properties-common \
-    ucommon-utils
+  bowtie2 \
+  bridge-utils \
+  build-essential \
+  curl \
+  debhelper \
+  desktop-file-utils \
+  devscripts \
+  fcitx-libs-dev \
+  gdebi-core \
+  gettext \
+  gir1.2-clutter-1.0 \
+  gir1.2-gtop-2.0 \
+  gir1.2-nm-1.0 \
+  git \
+  git-flow \
+  git-lfs \
+  gnupg2 \
+  gyp \
+  jq \
+  libbz2-dev \
+  libc6-dev \
+  libcurl4-openssl-dev \
+  libcurl4 \
+  libedit2 \
+  libexpat-dev \
+  libffi-dev \
+  libgcc-9-dev \
+  libgtk-4-bin \
+  libgtk-4-common \
+  libgtk-4-dev \
+  libgtk-4-doc \
+  libgtk2.0-dev \
+  libgtop2-dev \
+  libgwengui-qt5-dev \
+  libibus-1.0-dev \
+  liblzo2-dev \
+  libncurses-dev \
+  libpam0g-dev \
+  libprotobuf-dev \
+  libpython2.7 \
+  libqwt-qt5-dev \
+  libsqlite3-0 \
+  libsqlite3-dev \
+  libssl-dev \
+  libstdc++-9-dev \
+  libuim-dev \
+  libvirt-clients \
+  libvirt-daemon \
+  libxcb-xfixes0-dev \
+  libxml2 \
+  libz3-dev \
+  libzinnia-dev \
+  m4 \
+  nkf \
+  openssh-server \
+  protobuf-compiler \
+  python3-dev \
+  python3-pip \
+  python3-venv \
+  qemu-system-x86 \
+  qtbase5-dev \
+  ruby \
+  sqlite3 \
+  stress \
+  texinfo \
+  tree \
+  tzdata \
+  zsh \
+  apt-transport-https \
+  ca-certificates \
+  software-properties-common \
+  ucommon-utils
 
 # ------------------------------------------------------------------------------
 #  Install docker
@@ -109,16 +116,16 @@ sudo apt-get install -y binutils \
 
 # ファイル存在確認
 if [ -f /etc/apt/sources.list.d/docker.list ]; then
-    echo "SKIP: Already installed docker."
+  echo "SKIP: Already installed docker."
 else
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
-    sudo apt update
-    sudo apt-get install -y docker-ce
-    sudo usermod -aG docker ${USER}
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
-    docker-compose --version
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+  sudo apt update
+  sudo apt-get install -y docker-ce
+  sudo usermod -aG docker ${USER}
+  sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+  docker-compose --version
 fi
 
 # ------------------------------------------------------------------------------
@@ -346,9 +353,10 @@ curl https://sh.rustup.rs -sSf | sh -s -- -y
 # -----------------------------------------------------------------------------
 #  Install Wezterm
 # -----------------------------------------------------------------------------
+cd
 wget https://github.com/wez/wezterm/releases/download/20221119-145034-49b9839f/wezterm-20221119-145034-49b9839f.Ubuntu22.04.deb
-sudo apt-get install -y ./wezterm-20220624-141144-bd1b7c5d.Ubuntu22.04.deb
-rm -f ./wezterm-20220624-141144-bd1b7c5d.Ubuntu22.04.deb
+sudo apt-get install -y ./wezterm-20221119-145034-49b9839f.Ubuntu22.04.deb
+rm -f ./wezterm-20221119-145034-49b9839f.Ubuntu22.04.deb
 
 cat <<EOF >${HOME}/.wezterm.lua
 local wezterm = require 'wezterm';
@@ -397,26 +405,26 @@ return {
     -- Linkify things that look like URLs
     -- This is actually the default if you don't specify any hyperlink_rules
     {
-      regex = "\\b\\w+://(?:[\\w.-]+)\\.[a-z]{2,15}\\S*\\b",
+      regex = "\\\\b\\\\w+://(?:[\\\\w.-]+)\\\\.[a-z]{2,15}\\\\S*\\\\b",
       format = "/setup.sh",
     },
 
     -- linkify email addresses
     {
-      regex = "\\b\\w+@[\\w-]+(\\.[\\w-]+)+\\b",
+      regex = "\\\\b\\\\w+@[\\\\w-]+(\\\\.[\\\\w-]+)+\\\\b",
       format = "mailto:/setup.sh",
     },
 
     -- file:// URI
     {
-      regex = "\\bfile://\\S*\\b",
+      regex = "\\\\bfile://\\\\S*\\\\b",
       format = "/setup.sh",
     },
 
     -- Make task numbers clickable
     --[[
     {
-      regex = "\\b[tT](\\d+)\\b"
+      regex = "\\\\b[tT](\\\\d+)\\\\b"
       format = "https://example.com/tasks/?t="
     }
     ]]
@@ -433,6 +441,75 @@ sudo rm -Rf /usr/share/fonts/UDEVGothic_v1.0.1
 sudo mv UDEVGothic_v1.0.1 /usr/share/fonts
 rm UDEVGothic_v1.0.1.zip
 # -----------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
+#  Gnome settings
+# ------------------------------------------------------------------------------
+# auto maximize
+gsettings set org.gnome.mutter auto-maximize false
+
+# dock icon action
+gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
+
+# show trash
+gsettings set org.gnome.shell.extensions.ding show-trash true
+
+# default terminal
+gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/wezterm
+gsettings set org.gnome.desktop.default-applications.terminal exec-arg "-x"
+
+# dock extend height
+gsettings set org.gnome.shell.extensions.dash-to-dock extend-height true
+
+# dock app at top
+gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true
+
+# show battery percentage
+gsettings set org.gnome.desktop.interface show-battery-percentage true
+
+# show seconds at taskbar
+gsettings set org.gnome.desktop.interface clock-show-seconds "true"
+
+# show weekday at taskbar
+gsettings set org.gnome.desktop.interface clock-show-weekday "true"
+
+# set task font
+gsettings set org.gnome.desktop.interface font-name 'Noto Sans CJK JP 11'
+
+# hot corners
+gsettings set org.gnome.desktop.interface enable-hot-corners true
+
+# papirus-icon-theme
+sudo add-apt-repository -y ppa:papirus/papirus
+sudo apt-get update
+sudo apt-get install -y papirus-icon-theme
+gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
+
+# keyboard settings
+gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swap_lalt_lctl', 'ctrl:nocaps']"
+gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps', 'ctrl:swap_lalt_lctl']"
+gsettings set org.gnome.desktop.wm.keybindings close "['<Primary>q']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['<Primary><Shift>t']"
+gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Primary>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Primary><Shift>Tab']"
+
+cat <<EOF >${HOME}/.xbindkeysrc
+"echo -n | xsel -n -i; pkill xbindkeys; xdotool click 2; xbindkeys"
+b:2 + Release
+EOF
+
+xbindkeys -p
+
+# change directory name to english
+LANG=C xdg-user-dirs-update --force &&
+  rm -Rf テンプレート &&
+  rm -Rf ダウンロード &&
+  rm -Rf デスクトップ &&
+  rm -Rf ドキュメント &&
+  rm -Rf ビデオ &&
+  rm -Rf ピクチャ &&
+  rm -Rf ミュージック &&
+  rm -Rf 公開
 
 # ------------------------------------------------------------------------------
 #  Reboot
