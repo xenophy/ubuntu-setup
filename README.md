@@ -2,12 +2,15 @@
 
 A setup scripts for Ubuntu 22.04 LTS
 
-
 ## Desktop
 
 wget
 
 ```
+bash -c "$(wget https://bit.ly/3YEwbaF -O -)"
+
+# or
+
 bash -c "$(wget https://raw.githubusercontent.com/xenophy/ubuntu-setup/main/desktop-setup.sh -O -)"
 ```
 
