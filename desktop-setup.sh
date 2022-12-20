@@ -108,6 +108,10 @@ sudo apt-get install -y binutils \
   apt-transport-https \
   ca-certificates \
   software-properties-common \
+  libgtop2-dev \
+  gir1.2-gtop-2.0 \
+  gir1.2-nm-1.0 \
+  gir1.2-clutter-1.0 \
   ucommon-utils
 
 # ------------------------------------------------------------------------------
@@ -445,6 +449,10 @@ rm UDEVGothic_v1.0.1.zip
 # ------------------------------------------------------------------------------
 #  Gnome settings
 # ------------------------------------------------------------------------------
+
+# accent color
+gsettings set org.gnome.desktop.interface gtk-theme "Yaru-blue-dark"
+
 # auto maximize
 gsettings set org.gnome.mutter auto-maximize false
 
@@ -455,7 +463,7 @@ gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
 gsettings set org.gnome.shell.extensions.ding show-trash true
 
 # default terminal
-gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/wezterm
+gsettings set org.gnome.desktop.default-applications.terminal exec 'wezterm'
 gsettings set org.gnome.desktop.default-applications.terminal exec-arg "-x"
 
 # dock extend height
@@ -510,6 +518,77 @@ LANG=C xdg-user-dirs-update --force &&
   rm -Rf ピクチャ &&
   rm -Rf ミュージック &&
   rm -Rf 公開
+
+# ------------------------------------------------------------------------------
+#  Install tweaks
+# ------------------------------------------------------------------------------
+sudo apt-get update
+sudo add-apt-repository universe -y
+sudo apt install gnome-tweak-tool -y
+sudo apt install gnome-tweaks gnome-shell-extensions -y
+
+# ------------------------------------------------------------------------------
+#  Install Fluent wallpapers
+# ------------------------------------------------------------------------------
+cd ~/
+git clone -b Wallpaper https://github.com/vinceliuice/Fluent-gtk-theme.git
+cd Fluent-gtk-theme
+./install-wallpapers.sh
+cd ../
+rm -Rf Fluent-gtk-theme
+
+# ------------------------------------------------------------------------------
+#  Install restricted-extras
+# ------------------------------------------------------------------------------
+# sudo apt-get install -y ubuntu-restricted-extras
+
+# ------------------------------------------------------------------------------
+#  Install ffmpeg
+# ------------------------------------------------------------------------------
+sudo apt-get install -y ffmpeg
+
+# ------------------------------------------------------------------------------
+#  Install Totem
+# ------------------------------------------------------------------------------
+sudo apt install -y totem
+
+# ------------------------------------------------------------------------------
+#  Install Slack
+# ------------------------------------------------------------------------------
+sudo apt-get install -y slack
+
+# ------------------------------------------------------------------------------
+#  Install Ulauncher
+# ------------------------------------------------------------------------------
+sudo add-apt-repository -y ppa:agornostal/ulauncher
+sudo apt update
+sudo apt-get install -y ulauncher
+
+# ------------------------------------------------------------------------------
+#  Install Chrome
+# ------------------------------------------------------------------------------
+sudo apt-get install -y chromium-browser
+
+# ------------------------------------------------------------------------------
+#  Install KeePassX
+# ------------------------------------------------------------------------------
+sudo add-apt-repository -y ppa:phoerious/keepassxc
+sudo apt update
+sudo apt-get install -y keepassxc
+
+# ------------------------------------------------------------------------------
+#  Install Shotcut
+# ------------------------------------------------------------------------------
+sudo add-apt-repository -y ppa:haraldhv/shotcut
+sudo apt-get update
+sudo apt-get install -y shotcut
+
+# ------------------------------------------------------------------------------
+#  DeepL Clip
+# ------------------------------------------------------------------------------
+sudo apt install -y xclip nkf
+curl -OL https://github.com/masan4444/deepl-clip/releases/latest/download/deepl-clip.sh
+chmod u+x deepl-clip.sh
 
 # ------------------------------------------------------------------------------
 #  Reboot
