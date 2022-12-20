@@ -37,6 +37,13 @@ gsettings set org.gnome.desktop.session idle-delay 0
 #  Install Packages
 # ------------------------------------------------------------------------------
 sudo apt-get install -y binutils \
+  wmctrl \
+  xbindkeys \
+  procps \
+  file \
+  xsel \
+  xdotool \
+  zlib1g-dev \
   bowtie2 \
   bridge-utils \
   build-essential \
@@ -1289,6 +1296,15 @@ cat <<EOF >~/.config/Code/User/settings.json
   //
 }
 EOF
+
+# 日本語指定で一度起動する
+code --locale=ja
+
+# 一時停止
+sleep 5s
+
+# 終了する
+ps aux | grep /usr/share/code/code | grep -v grep | awk '{ print \"kill -9\", $2 }' | sh
 
 # ------------------------------------------------------------------------------
 #  Reboot
