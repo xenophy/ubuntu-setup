@@ -590,6 +590,143 @@ sudo apt install -y xclip nkf
 curl -OL https://github.com/masan4444/deepl-clip/releases/latest/download/deepl-clip.sh
 chmod u+x deepl-clip.sh
 
+# TODO: DeepL Clip shortcut setting
+
+# ------------------------------------------------------------------------------
+#  Install Visual Studio Code
+# ------------------------------------------------------------------------------
+sudo apt-get install wget gpg
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
+sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings
+sudo sh -c 'echo \"deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main\" > /etc/apt/sources.list.d/vscode.list'
+rm -f packages.microsoft.gpg
+sudo apt-get install -y apt-transport-https
+sudo apt-get update
+sudo apt-get install -y code
+sudo apt-get autoremove -y
+
+code --install-extension vmsynkov.colonize
+code --install-extension aaron-bond.better-comments
+code --install-extension actboy168.lua-debug
+code --install-extension alefragnani.Bookmarks
+code --install-extension antfu.browse-lite
+code --install-extension antfu.vite
+code --install-extension ashishmishra26.iceberg
+code --install-extension astro-build.astro-vscode
+code --install-extension austenc.tailwind-docs
+code --install-extension Avetis.nord-palette
+code --install-extension bibhasdn.unique-lines
+code --install-extension bmewburn.vscode-intelephense-client
+code --install-extension bourhaouta.tailwindshades
+code --install-extension bradlc.vscode-tailwindcss
+code --install-extension bungcip.better-toml
+code --install-extension Cameron.vscode-pytest
+code --install-extension codezombiech.gitignore
+code --install-extension coolbear.systemd-unit-file
+code --install-extension crystal-lang-tools.crystal-lang
+code --install-extension cschlosser.doxdocgen
+code --install-extension danascript.ice-blue-dark-theme
+code --install-extension Dart-Code.dart-code
+code --install-extension dlech.chmod
+code --install-extension dnlytras.nord-wave
+code --install-extension doinkythederp.nasm-language-support
+code --install-extension donjayamanne.python-environment-manager
+code --install-extension dvirtz.parquet-viewer
+code --install-extension eamodio.gitlens
+code --install-extension ecmel.vscode-html-css
+code --install-extension Equinusocio.vsc-community-material-theme
+code --install-extension Equinusocio.vsc-material-theme
+code --install-extension equinusocio.vsc-material-theme-icons
+code --install-extension esbenp.prettier-vscode
+code --install-extension formulahendry.auto-close-tag
+code --install-extension formulahendry.auto-rename-tag
+code --install-extension formulahendry.code-runner
+code --install-extension foxundermoon.shell-format
+code --install-extension frhtylcn.pythonsnippets
+code --install-extension geddski.macros
+code --install-extension GitLab.gitlab-workflow
+code --install-extension golang.go
+code --install-extension HaaLeo.timing
+code --install-extension harg.iceberg
+code --install-extension hbenl.vscode-test-explorer
+code --install-extension henriiik.vscode-sort
+code --install-extension hollowtree.vue-snippets
+code --install-extension jairhenrique.pytest-snippets
+code --install-extension JakeBecker.elixir-ls
+code --install-extension jeff-hykin.better-cpp-syntax
+code --install-extension KevinRose.vsc-python-indent
+code --install-extension kosz78.nim
+code --install-extension lanza.lldb-vscode
+code --install-extension littlefoxteam.vscode-python-test-adapter
+code --install-extension liuji-jim.vue
+code --install-extension lkrms.inifmt
+code --install-extension lorenzopirro.zig-snippets
+code --install-extension LucianIrsigler.nasm
+code --install-extension mads-hartmann.bash-ide-vscode
+code --install-extension marlosirapuan.nord-deep
+code --install-extension maziac.asm-code-lens
+code --install-extension mcright.auto-save
+code --install-extension mosapride.zenkaku
+code --install-extension ms-azuretools.vscode-docker
+code --install-extension MS-CEINTL.vscode-language-pack-ja
+code --install-extension ms-dotnettools.csharp
+code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
+code --install-extension ms-python.python
+code --install-extension ms-python.vscode-pylance
+code --install-extension ms-toolsai.jupyter
+code --install-extension ms-toolsai.jupyter-keymap
+code --install-extension ms-toolsai.jupyter-renderers
+code --install-extension ms-vscode-remote.remote-containers
+code --install-extension ms-vscode-remote.remote-ssh
+code --install-extension ms-vscode-remote.remote-ssh-edit
+code --install-extension ms-vscode.cmake-tools
+code --install-extension ms-vscode.cpptools
+code --install-extension ms-vscode.cpptools-extension-pack
+code --install-extension ms-vscode.cpptools-themes
+code --install-extension ms-vscode.mono-debug
+code --install-extension ms-vscode.test-adapter-converter
+code --install-extension ms-vscode.vscode-typescript-next
+code --install-extension ms-vsliveshare.vsliveshare
+code --install-extension ms-vsliveshare.vsliveshare-audio
+code --install-extension ms-vsliveshare.vsliveshare-pack
+code --install-extension mtxr.sqltools
+code --install-extension nickmillerdev.pytest-fixtures
+code --install-extension njpwerner.autodocstring
+code --install-extension Nord.nord
+code --install-extension oderwat.indent-rainbow
+code --install-extension oonsnnsk.vscode-autosave-ext
+code --install-extension pamaron.pytest-runner
+code --install-extension PKief.material-icon-theme
+code --install-extension prime31.zig
+code --install-extension redhat.java
+code --install-extension redhat.vscode-yaml
+code --install-extension rust-lang.rust-analyzer
+code --install-extension SBSnippets.pytorch-snippets
+code --install-extension shakram02.bash-beautify
+code --install-extension shardulm94.trailing-spaces
+code --install-extension sswg.swift-lang
+code --install-extension sumneko.lua
+code --install-extension trixnz.vscode-lua
+code --install-extension twxs.cmake
+code --install-extension vadimcn.vscode-lldb
+code --install-extension vincaslt.highlight-matching-tag
+code --install-extension VisualStudioExptTeam.intellicode-api-usage-examples
+code --install-extension VisualStudioExptTeam.vscodeintellicode
+code --install-extension voorjaar.windicss-intellisense
+code --install-extension vscjava.vscode-java-debug
+code --install-extension vscjava.vscode-java-dependency
+code --install-extension vscjava.vscode-java-pack
+code --install-extension vscjava.vscode-java-test
+code --install-extension vscjava.vscode-maven
+code --install-extension vscodevim.vim
+code --install-extension wingrunr21.vscode-ruby
+code --install-extension xdebug.php-debug
+code --install-extension xdebug.php-pack
+code --install-extension yzhang.markdown-all-in-one
+code --install-extension Zarifprogrammer.tailwind-snippets
+code --install-extension ZixuanChen.vitest-explorer
+code --install-extension zobo.php-intellisense
+
 # ------------------------------------------------------------------------------
 #  Reboot
 # ------------------------------------------------------------------------------
