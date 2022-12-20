@@ -727,6 +727,569 @@ code --install-extension Zarifprogrammer.tailwind-snippets
 code --install-extension ZixuanChen.vitest-explorer
 code --install-extension zobo.php-intellisense
 
+mkdir -p ~/.config/Code/User
+cat <<EOF >~/.config/Code/User/keybindings.json
+// 既定値を上書きするには、このファイル内にキー バインドを挿入します
+[
+  // Git管理
+  // サイドバーのgitボタンクリックの動作
+  {
+    "key": "shift+ctrl+g",
+    "command": "workbench.view.scm"
+  },
+  //
+  //
+  // spaceでエディターにdiffを開きつつカーソルは残したまま
+  // {
+  // "key": "ctrl+shift+space",
+  // "command": "list.selectAndPreserveFocus",
+  // "when": "sideBarFocus && activeViewlet == 'workbench.view.scm'"
+  // },
+  //
+  //
+  // uでステージング
+  // {
+  // "key": "ctrl+shift+u",
+  // "command": "git.stage",
+  // "when": "sideBarFocus && activeViewlet == 'workbench.view.scm'"
+  // },
+  //
+  //
+  // shift + c でコミットメッセージの入力へ
+  // {
+  // "key": "shift+c",
+  // "command": "git.commitStaged",
+  // "when": "sideBarFocus && activeViewlet == 'workbench.view.scm'"
+  // },
+  //
+  //
+  // shfit + p でプッシュ
+  // {
+  // "key": "shift+p",
+  // "command": "git.push",
+  // "when": "sideBarFocus && activeViewlet == 'workbench.view.scm'"
+  // },
+  //
+  //
+  // shift+u でステージングを戻す
+  // {
+  //   "key": "shift+u",
+  //   "command": "git.unstage",
+  //   "when": "sideBarFocus && activeViewlet == 'workbench.view.scm'"
+  // },
+  //
+  //
+  // エクスプローラーへフォーカス
+  {
+    "key": "ctrl+w h",
+    "command": "workbench.action.focusSideBar",
+    "when": "editorFocus"
+  },
+  //
+  //
+  // エディタへフォーカス
+  {
+    "key": "escape",
+    "command": "workbench.action.focusFirstEditorGroup",
+    "when": "!editorFocus"
+  },
+  {
+    "key": "ctrl+w l",
+    "command": "workbench.action.focusFirstEditorGroup",
+    "when": "!editorFocus"
+  },
+  //
+  //
+  // エクスプローラー表示/非表示切り替え
+  {
+    "key": "ctrl+1 ctrl+1",
+    "command": "workbench.view.explorer",
+    "when": "viewContainer.workbench.view.explorer.enabled"
+  },
+  {
+    "key": "ctrl+1 ctrl+1",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "filesExplorerFocus"
+  },
+  //
+  //
+  // ドキュメントフォーマット
+  {
+    "key": "ctrl+alt+l",
+    "command": "editor.action.formatDocument.none",
+    "when": "editorTextFocus && !editorHasDocumentFormattingProvider && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+i",
+    "command": "-editor.action.formatDocument.none",
+    "when": "editorTextFocus && !editorHasDocumentFormattingProvider && !editorReadonly"
+  },
+  {
+    "key": "ctrl+alt+l",
+    "command": "editor.action.formatDocument",
+    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
+  },
+  {
+    "key": "ctrl+shift+i",
+    "command": "-editor.action.formatDocument",
+    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
+  },
+  {
+    "key": "ctrl+w ctrl+w",
+    "command": "workbench.action.closeActiveEditor"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "-workbench.action.closeActiveEditor"
+  },
+  //
+  //
+  // エディタ移動
+  {
+    "key": "ctrl+shift+]",
+    "command": "workbench.action.nextEditor"
+  },
+  {
+    "key": "ctrl+pagedown",
+    "command": "-workbench.action.nextEditor"
+  },
+  {
+    "key": "ctrl+shift+[",
+    "command": "workbench.action.previousEditor"
+  },
+  {
+    "key": "ctrl+pageup",
+    "command": "-workbench.action.previousEditor"
+  },
+  //
+  //
+  // デバッグなしで実行
+  {
+    "key": "shift+f10",
+    "command": "workbench.action.debug.run",
+    "when": "debuggersAvailable && debugState != 'initializing'"
+  },
+  {
+    "key": "ctrl+f5",
+    "command": "-workbench.action.debug.run",
+    "when": "debuggersAvailable && debugState != 'initializing'"
+  },
+  //
+  //
+  // デバッグ実行
+  {
+    "key": "shift+f9",
+    "command": "workbench.action.debug.start",
+    "when": "debuggersAvailable && debugState == 'inactive'"
+  },
+  {
+    "key": "f5",
+    "command": "-workbench.action.debug.start",
+    "when": "debuggersAvailable && debugState == 'inactive'"
+  },
+  //
+  //
+  // ターミナル表示/非表示
+  {
+    "key": "ctrl+f12",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  //
+  //
+  // ブレークポイント設定/解除
+  {
+    "key": "ctrl+f7",
+    "command": "editor.debug.action.toggleBreakpoint",
+    "when": "debuggersAvailable && editorTextFocus"
+  },
+  {
+    "key": "f8",
+    "command": "-editor.debug.action.toggleBreakpoint",
+    "when": "debuggersAvailable && editorTextFocus"
+  },
+  //
+  //
+  // ステップアウト
+  {
+    "key": "f8",
+    "command": "workbench.action.debug.stepOut",
+    "when": "debugState != 'inactive'"
+  },
+  {
+    "key": "ctrl+f11",
+    "command": "-workbench.action.debug.stepOut",
+    "when": "debugState != 'inactive'"
+  },
+  //
+  //
+  // ステップイン
+  {
+    "key": "f7",
+    "command": "workbench.action.debug.stepInto",
+    "when": "debugState != 'inactive'"
+  },
+  {
+    "key": "f11",
+    "command": "-workbench.action.debug.stepInto",
+    "when": "debugState != 'inactive'"
+  },
+  {
+    "key": "tab",
+    "command": "editor.action.indentLines",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+]",
+    "command": "-editor.action.indentLines",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+tab",
+    "command": "editor.action.outdentLines",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+[",
+    "command": "-editor.action.outdentLines",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+/",
+    "command": "macros.commentLineAndNext"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.files.newUntitledFile"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "-workbench.action.files.newUntitledFile"
+  },
+  {
+    "key": "alt+n",
+    "command": "explorer.newFile"
+  },
+  {
+    "key": "ctrl+shift+n",
+    "command": "explorer.newFolder"
+  },
+  {
+    "key": "shift+alt+pageup",
+    "command": "workbench.action.terminal.resizePaneUp"
+  },
+  {
+    "key": "shift+alt+pagedown",
+    "command": "workbench.action.terminal.resizePaneDown"
+  },
+  {
+    "key": "ctrl+shift+alt+/",
+    "command": "editor.action.quickFix",
+    "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+.",
+    "command": "-editor.action.quickFix",
+    "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+j",
+    "command": "-rust-analyzer.joinLines",
+    "when": "editorTextFocus && editorLangId == 'rust'"
+  },
+  {
+    "key": "ctrl+shift+j",
+    "command": "-workbench.action.search.toggleQueryDetails",
+    "when": "inSearchEditor || searchViewletFocus"
+  },
+  {
+    "key": "ctrl+shift+c",
+    "command": "-workbench.action.terminal.openNativeConsole",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+shift+alt+[BracketLeft]",
+    "command": "workbench.action.toggleMaximizedPanel"
+  },
+  {
+    "key": "shift+f5",
+    "command": "-workbench.action.debug.stop",
+    "when": "inDebugMode && !focusedSessionIsAttach"
+  },
+  {
+    "key": "ctrl+f2",
+    "command": "workbench.action.debug.disconnect",
+    "when": "focusedSessionIsAttach && inDebugMode"
+  },
+  {
+    "key": "shift+f5",
+    "command": "-workbench.action.debug.disconnect",
+    "when": "focusedSessionIsAttach && inDebugMode"
+  },
+  {
+    "key": "ctrl+f2",
+    "command": "workbench.action.debug.stop"
+  },
+  {
+    "key": "shift+f11",
+    "command": "bookmarks.toggle",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+alt+k",
+    "command": "-bookmarks.toggle",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+f11",
+    "command": "bookmarks.jumpToNext",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+alt+l",
+    "command": "-bookmarks.jumpToNext",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+alt+[Minus]",
+    "command": "macros.fakeUnderscore"
+  },
+  {
+    "key": "ctrl+shift+alt+p",
+    "command": "clipring.pasteRingItem",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+shift+v",
+    "command": "-clipring.pasteRingItem",
+    "when": "editorFocus"
+  }
+]
+//
+EOF
+
+cat <<EOF >~/.config/Code/User/settings.json
+{
+  // 単体テストツールとしてpytestを有効化
+  "python.testing.pytestEnabled": true,
+  // ファイル保存時にテスト対象コードを自動的に探索
+  "python.testing.autoTestDiscoverOnSaveEnabled": true,
+  // 単体テストツールとしてpytestを有効化
+  "python.testing.pytestEnabled": true,
+  // ファイル保存時にテスト対象を自動的に探索
+  "python.testing.autoTestDiscoverOnSaveEnabled": true,
+  // pytest実行時の引数設定を追加
+  // --cov: カバレッジ計測の有効化
+  // --cov-report xml: カバレッジ計測レポートをxml形式(coverage.xml)で出力
+  "python.testing.pytestArgs": [
+    "--cov=src",
+    "--cov-report",
+    "xml"
+  ],
+  // エディタ上のカバレッジ表示設定
+  // ガター(ブレークポイント等が表示される場所)でのカバレッジ表示有無(default: true)
+  "coverage-gutters.showGutterCoverage": true,
+  // エディタ行でのカバレッジ表示有無(default: false)
+  "coverage-gutters.showLineCoverage": true,
+  // ルーラーでのカバレッジ表示有無(default: false)
+  "coverage-gutters.showRulerCoverage": true,
+  "macros": {
+    "fakeUnderscore": [
+      {
+        "command": "type",
+        "args": {
+          "text": "_"
+        }
+      }
+    ],
+    "commentLineAndNext": [
+      "editor.action.commentLine",
+      "cursorDown",
+    ],
+  },
+  "vim.easymotion": true,
+  // 'j' -> 'k' == ESC
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "k"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "u"
+      ],
+      "commands": [
+        "undo"
+      ]
+    },
+    {
+      "before": [
+        "<C-r>"
+      ],
+      "commands": [
+        "redo"
+      ]
+    }
+  ],
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false,
+    "<C-n>": false,
+    "<C-c>": false,
+    "<C-x>": false,
+    "<C-v>": false,
+    "<C-b>": false,
+    "<C-j>": false,
+    "<C-k>": false
+  },
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "explorer.confirmDelete": false,
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "redhat.telemetry.enabled": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "terminal.external.osxExec": "wezterm",
+  "terminal.external.linuxExec": "wezterm",
+  "terminal.integrated.profiles.linux": {
+    // "bash": {
+    // "path": "bash",
+    // "icon": "terminal-bash"
+    // },
+    "zsh": {
+      "path": "zsh",
+      "icon": "terminal-bash"
+    },
+    "fish": {
+      "path": "fish"
+    },
+    "tmux": {
+      "path": "tmux",
+      "icon": "terminal-tmux"
+    },
+    "pwsh": {
+      "path": "pwsh",
+      "icon": "terminal-powershell"
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "python.condaPath": "/home/sware/micromamba/condabin/conda",
+  "vs-kubernetes": {
+    "vscode-kubernetes.helm-path.linux": "/home/sware/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm",
+    "vscode-kubernetes.kubectl-path.linux": "/home/sware/.local/state/vs-kubernetes/tools/kubectl/kubectl",
+    "vscode-kubernetes.minikube-path.linux": "/home/sware/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube"
+  },
+  "git.ignoreRebaseWarning": true,
+  "editor.minimap.enabled": false,
+  "editor.accessibilitySupport": "off",
+  "editor.mouseWheelZoom": true,
+  "explorer.confirmDragAndDrop": false,
+  "remote.SSH.remotePlatform": {
+    "dev.vlue.io": "linux"
+  },
+  "indentRainbow.errorColor": "rgba(128,32,32,0.1)",
+  "indentRainbow.tabmixColor": "rgba(128,32,96,0.1)",
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[dockercompose]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.autoSave": "afterDelay",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "files.associations": {
+    "*.ts": "typescript"
+  },
+  "explorer.compactFolders": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "window.zoomLevel": 5,
+  "workbench.colorTheme": "Nord Deep",
+  "[php]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "vsicons.dontShowNewVersionMessage": true,
+  "gitlens.codeLens.enabled": false,
+  "gitlens.hovers.enabled": false,
+  "explorer.autoReveal": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "todo-tree.highlights.customHighlight": {
+    "BUG": {
+      "icon": "bug"
+    },
+    "HACK": {
+      "icon": "tools"
+    },
+    "FIXME": {
+      "icon": "flame"
+    },
+    "XXX": {
+      "icon": "$(close)"
+    }
+  },
+  "todo-tree.highlights.useColourScheme": true,
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO",
+    "XXX",
+    "[ ]",
+    "[x]",
+    "TEMP",
+    "INFO",
+    "MEMO"
+  ],
+  "php.validate.enable": false,
+  "php.suggest.basic": false,
+  "php.validate.executablePath": "/home/linuxbrew/.linuxbrew/bin/php",
+  "editor.fontFamily": "'UDEV Gothic', 'Droid Sans Mono', 'monospace', monospace",
+  "vim.useSystemClipboard": true,
+  "workbench.editor.enablePreview": false,
+  "vite.autoStart": false,
+  //
+}
+EOF
+
 # ------------------------------------------------------------------------------
 #  Reboot
 # ------------------------------------------------------------------------------
