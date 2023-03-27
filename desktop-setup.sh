@@ -122,8 +122,8 @@ sudo apt-get install -y binutils \
   ucommon-utils
 
 sudo apt-get install -y \
-  accountsservice
-  acl
+  accountsservice \
+  acl \
   acpi-support \
   acpid \
   adduser \
